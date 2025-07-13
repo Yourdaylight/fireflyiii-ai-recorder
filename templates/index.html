@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firefly记账系统</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Firefly记账系统</h1>
+        <div class="accounts-section">
+            <div class="default-accounts">
+                <div class="form-group">
+                    <label>默认支出来源账户</label>
+                    <div id="expenseAccounts"></div>
+                </div>
+                <div class="form-group">
+                    <label>默认支出目的账户</label>
+                    <div id="revenueAccounts"></div>
+                </div>
+            </div>
+        </div>
+        <div class="input-section">
+            <h2>输入交易记录</h2>
+            <textarea id="rawInput" placeholder="输入交易记录，格式如：&#10;07.06&#10;- 12.00 午餐 66&#10;- 16.00 物业费 900"></textarea>
+            <button id="parseBtn">解析</button>
+            
+            <!-- 全屏遮罩loading -->
+            <div id="loadingOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
+                <div style="background:white; padding:20px; border-radius:5px; text-align:center;">
+                    <div style="margin-bottom:10px;">解析中，请稍候(3-10秒)...</div>
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="parsedResult" style="display:none;">
+            <h2>解析结果</h2>
+            <div id="transactionsPreview"></div>
+            <button id="confirmBtn">确认记录</button>
+            <button id="cancelBtn">取消</button>
+        </div>
+
+        <form id="transactionForm" style="display:none;">
+            <div class="form-group">
+                <label for="date">日期</label>
+                <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+                <label for="time">时间</label>
+                <input type="time" id="time" required>
+            </div>
+            <div class="form-group">
+                <label for="description">描述</label>
+                <input type="text" id="description" placeholder="输入交易描述" required>
+            </div>
+            <div class="form-group">
+                <label for="amount">金额</label>
+                <input type="number" id="amount" placeholder="0.00" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="notes">备注</label>
+                <textarea id="notes" rows="2"></textarea>
+            </div>
+            <button type="submit">记录交易</button>
+        </form>
+        <div id="transactionList"></div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
