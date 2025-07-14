@@ -1,12 +1,12 @@
 <template>
   <div class="firefly-root">
     <el-row :gutter="20" justify="space-between" align="middle">
-      <el-col :span="16">
+      <el-col :xs="24" :sm="16">
         <el-card class="firefly-header" shadow="hover">
           <h1>最近交易记录</h1>
         </el-card>
       </el-col>
-      <el-col :span="8" style="text-align: right;">
+      <el-col :xs="24" :sm="8" class="button-col">
         <el-button type="primary" icon="Back" @click="$router.push('/')">返回首页</el-button>
       </el-col>
     </el-row>
@@ -15,42 +15,44 @@
     <el-row :gutter="20" class="firefly-recent-row">
       <el-col :span="24">
         <el-card class="firefly-recent-card">
-          <el-table :data="transactions" stripe border class="firefly-table">
-            <el-table-column prop="date" label="日期" width="110" align="center" />
-            <el-table-column prop="description" label="描述" min-width="120" align="center" />
-            <el-table-column prop="amount" label="金额" width="100" align="center">
-              <template #default="scope">
-                <span class="firefly-amount">{{ scope.row && scope.row.amount ? formatAmount(scope.row.amount) : '-' }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="category" label="分类" width="100" align="center" />
-            <el-table-column prop="tags" label="标签" width="160" align="center">
-              <template #default="scope">
-                <template v-if="scope.row && scope.row.tags?.length">
-                  <el-tag 
-                    v-for="tag in scope.row.tags" 
-                    :key="tag"
-                    size="small"
-                    class="mr-5"
-                  >
-                    {{ tag }}
-                  </el-tag>
+          <div class="table-container">
+            <el-table :data="transactions" stripe border class="firefly-table">
+              <el-table-column prop="date" label="日期" width="110" align="center" />
+              <el-table-column prop="description" label="描述" min-width="120" align="center" />
+              <el-table-column prop="amount" label="金额" width="100" align="center">
+                <template #default="scope">
+                  <span class="firefly-amount">{{ scope.row && scope.row.amount ? formatAmount(scope.row.amount) : '-' }}</span>
                 </template>
-                <span v-else>-</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="notes" label="备注" min-width="100" align="center" />
-            <el-table-column label="源账户" width="120" align="center">
-              <template #default="scope">
-                <el-tag type="danger">{{ getAccountName(scope.row.source_id) }}</el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column label="目的账户" width="120" align="center">
-              <template #default="scope">
-                <el-tag type="info">{{ getAccountName(scope.row.destination_id) }}</el-tag>
-              </template>
-            </el-table-column>
-          </el-table>
+              </el-table-column>
+              <el-table-column prop="category" label="分类" width="100" align="center" />
+              <el-table-column prop="tags" label="标签" width="160" align="center">
+                <template #default="scope">
+                  <template v-if="scope.row && scope.row.tags?.length">
+                    <el-tag 
+                      v-for="tag in scope.row.tags" 
+                      :key="tag"
+                      size="small"
+                      class="mr-5"
+                    >
+                      {{ tag }}
+                    </el-tag>
+                  </template>
+                  <span v-else>-</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="notes" label="备注" min-width="100" align="center" />
+              <el-table-column label="源账户" width="120" align="center">
+                <template #default="scope">
+                  <el-tag type="danger">{{ getAccountName(scope.row.source_id) }}</el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column label="目的账户" width="120" align="center">
+                <template #default="scope">
+                  <el-tag type="info">{{ getAccountName(scope.row.destination_id) }}</el-tag>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
         </el-card>
       </el-col>
     </el-row>
@@ -107,11 +109,16 @@ onMounted(() => {
 
 <style scoped>
 .firefly-root {
-  width: 80%; 
-  margin: 0 auto;
-  padding: 24px 8px;
+  width: 100%;
+  padding: 24px 16px;
   background: #f8fafc;
   box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .firefly-root {
+    padding: 16px 8px;
+  }
 }
 .firefly-header {
   margin-bottom: 24px;
@@ -162,5 +169,17 @@ onMounted(() => {
   color: #ea580c;
   font-weight: bold;
   font-size: 1.08em;
+}
+
+.table-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .button-col {
+    text-align: center;
+    margin-top: 16px;
+  }
 }
 </style>

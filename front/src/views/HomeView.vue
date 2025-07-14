@@ -8,7 +8,7 @@
 
       <!-- 账户卡片 -->
       <el-row :gutter="20" style="margin-bottom:24px;">
-        <el-col :span="12">
+        <el-col :xs="24" :sm="12">
           <el-card shadow="hover" class="firefly-account-card">
         <template #header>
           <el-icon><Wallet /></el-icon>
@@ -35,7 +35,7 @@
             </el-form>
           </el-card>
         </el-col>
-        <el-col :span="12">
+        <el-col :xs="24" :sm="12">
           <el-card shadow="hover" class="firefly-account-card">
         <template #header>
           <el-icon><CreditCard /></el-icon>
@@ -94,7 +94,7 @@
           resize="none"
           class="firefly-transaction-input"
         ></el-input>
-        <div style="display:flex;justify-content:flex-end;gap:16px;margin-top:18px;">
+        <div class="button-container">
           <el-link type="info">Version: {{ version }}</el-link>
           <el-button 
               v-if="fireflyUrl" 
@@ -116,9 +116,7 @@
             :disabled="isParsing"
             icon="Edit"
           >AI 解析交易记录</el-button>
-
         </div>
-
       </el-card>
 
       <!-- 解析结果区 -->
@@ -166,7 +164,7 @@
           <el-table-column prop="notes" label="备注" min-width="100" align="center" />
         </el-table>
         <div style="text-align:right;">
-          <el-button
+            <el-button
             :loading="loading"
             type="success"
             @click="submitForm"
@@ -408,7 +406,8 @@ const resetForm = () => {
 .firefly-account-radio {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 10px;
   width: 100%;
   border-radius: 9px;
   margin-bottom: 10px;
@@ -444,5 +443,27 @@ const resetForm = () => {
   font-weight: 500;
   background: #bae6fd;
   color: #0369a1;
+}
+
+/* 按钮容器响应式样式 */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .button-container {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .button-container .el-button,
+  .button-container .el-link {
+    width: 100%;
+    justify-content: center;
+  }
 }
 </style>

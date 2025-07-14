@@ -15,7 +15,7 @@ from env_settings import settings, UserConfigs
 from llm_client import FireflyTransactionAgent
 from firefly_api import  FireflyIIIAPIClient
 from collections import Counter
-VERSION = "0.1.2"
+VERSION = "0.1.3"
 app = FastAPI()
 import os
 

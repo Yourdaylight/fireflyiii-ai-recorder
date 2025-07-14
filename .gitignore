@@ -30,6 +30,6 @@ coverage
 
 *.tsbuildinfo
 *.vscode
-
+.env
 test-results/
 playwright-report/
