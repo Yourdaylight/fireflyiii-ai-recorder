@@ -31,5 +31,7 @@ coverage
 *.tsbuildinfo
 *.vscode
 .env
+*.user_configs.json
 test-results/
 playwright-report/
+user_configs.json
